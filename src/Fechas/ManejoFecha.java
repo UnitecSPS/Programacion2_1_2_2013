@@ -13,11 +13,7 @@ import java.util.Date;
  */
 public class ManejoFecha {
     public static void main(String[] args) {
-        
-        Empleado e = new Empleado(1,"ss");
-        
-        
-        
+         
         //actual
         Date now = new Date();
         //procesoo--------------
