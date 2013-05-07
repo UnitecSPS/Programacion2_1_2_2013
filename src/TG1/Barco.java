@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Gotcha
  */
-public class Barco {
+public abstract class Barco {
     protected String nombre;
     protected Date fecha;
     
@@ -31,11 +31,7 @@ public class Barco {
         return fecha;
     }
     
-    public void agregarElemento(){
-        System.out.println("SOY PADRE NO HAGO NADA");
-    }
+    public abstract void agregarElemento();
     
-    public double vaciarCobrar(){
-        return 0;
-    }
+    public abstract double vaciarCobrar();
 }

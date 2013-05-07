@@ -16,6 +16,7 @@ public class Trabajador {
     protected String nombre;
     protected Date fechan;
     protected Date fechai;
+    public static final double rap = 0.35;
     
     public Trabajador(int n, String no){
         numero = n;
@@ -39,6 +40,8 @@ public class Trabajador {
     }
     
     public double pagar(){
-        return 0;
+        final int x;
+        x = 0;
+        return x;
     }
 }
