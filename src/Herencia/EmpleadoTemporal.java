@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Gotcha
  */
-public class EmpleadoTemporal extends Empleado{
+public final class EmpleadoTemporal extends Empleado{
     private Date fechafin;
 
     @Override
