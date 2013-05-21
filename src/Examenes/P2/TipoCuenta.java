@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Errores;
+package Examenes.P2;
 
 /**
  *
  * @author Gotcha
  */
-public class PatitoException extends Exception {
-    public PatitoException(String n){
-        super(n);
-    }
+public enum TipoCuenta {
+    FACEBOOK, TWITTER;
 }

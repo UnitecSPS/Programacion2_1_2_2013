@@ -31,13 +31,13 @@ public class Patito {
         System.out.println("FInalizando");
     }
 
-    private static void estanque() {
+    private static void estanque()throws PatitoException {
         System.out.println("Cuando calienta el sol");
         algas();
         System.out.println("Se vino la noche");
     }
 
-    private static void algas() {
+    private static void algas()throws PatitoException {
         Scanner lea = new Scanner(System.in);
         System.out.println("Flotando");
         
@@ -45,8 +45,10 @@ public class Patito {
         int z[] = {1,2};
         System.out.println(z[x]);
         
-        if( x == 0 )
-            throw new PatitoException("Este es un pato loco");
+        if( x == 0 ){
+            PatitoException e = new PatitoException("Este es un pato loco");
+            throw e; 
+        }
         
         System.out.println("Paseando en el agua");
     }
