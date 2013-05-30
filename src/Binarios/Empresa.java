@@ -7,6 +7,7 @@ package Binarios;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Date;
 
 /**
  *
@@ -119,8 +120,11 @@ public class Empresa {
      *        existe
      */
     public void agregarVenta(int cod, double monto)throws IOException{
-        RandomAccessFile remp = buscarEmpleado(cod);
-        
+        activo(cod);
+        rVenta.seek(rVenta.length());
+        rVenta.writeInt(cod);
+        rVenta.writeLong(new Date().getTime());
+        rVenta.writeDouble(monto);
     }
 
     /**
@@ -138,5 +142,73 @@ public class Empresa {
             return new RandomAccessFile(filepath,"rw");
         else
             throw new NoSuchEmployeeException(cod);
+    }
+    
+    /**
+     * Actualizar Salario del Empleado si Existe y esta Activo
+     * @param cod Codigo del Empleado
+     * @param newSal Nuevo Salario
+     * @throws IOException Error en el archivo
+     */
+    public void updateSalario(int cod, double newSal)throws IOException{
+        RandomAccessFile ram = activo(cod);
+        
+        String cad = ram.readUTF();
+        double sal = ram.readDouble();
+        ram.seek(ram.getFilePointer()-8);
+        ram.writeDouble(newSal);
+            
+        System.out.printf("Se actualizo el Salario de %s de Lps. %.1f a %.1f\n",
+                        cad, sal, newSal);
+        ram.close();
+    }
+    
+    /**
+     * Retorna un RandomAccessFile si el usuario esta activo y existe
+     * @param cod Codigo del Empleado
+     * @return RandonAccessFile con el archivo del Empleado
+     * @throws IOException 
+     */
+    private RandomAccessFile activo(int cod)throws IOException{
+        RandomAccessFile remp = buscarEmpleado(cod);
+        remp.readInt();
+        remp.readUTF();
+        remp.seek(remp.getFilePointer()+16);
+        remp.readUTF();
+        
+        if( remp.readBoolean() ){
+            remp.seek(4);
+            return remp;
+        }
+        else{
+            throw new NoSuchEmployeeException(cod);
+        }
+    }
+    
+    public double ventasNoPagadasDe(int cod)throws IOException{
+        double ventas = 0;
+        RandomAccessFile remp = activo(cod);
+        
+        remp.readUTF();
+        remp.readDouble();
+        long ultima = remp.readLong();
+        
+        rVenta.seek(0);
+        
+        while( rVenta.getFilePointer() < rVenta.length() ){
+            int codigo = rVenta.readInt();
+            long fecha = rVenta.readLong();
+            double monto = rVenta.readDouble();
+            
+            if( codigo == cod ){
+                Date now = new Date();
+                
+                if(fecha > ultima && fecha <= now.getTime()){
+                    ventas += monto;
+                }
+            }
+        }
+        
+        return ventas;
     }
 }

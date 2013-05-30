@@ -22,6 +22,7 @@ public class Patito {
             System.out.println("1- Agregar Empleado");
             System.out.println("2- Listar Empleados");
             System.out.println("3- Agregar Venta");
+            System.out.println("4- Actualizar Salario");
             System.out.println("7- Salir");
             System.out.print("Escoja opcion: ");
             
@@ -37,6 +38,9 @@ public class Patito {
                         break;
                     case 3:
                         venta();
+                        break;
+                    case 4:
+                        updateSalario();
                         break;
                 }
             }
@@ -65,5 +69,14 @@ public class Patito {
         double vent = lea.nextDouble();
         
         emp.agregarVenta(cod, vent);
+    }
+
+    private static void updateSalario()throws IOException {
+        System.out.println("Codigo: ");
+        int cod = lea.nextInt();
+        System.out.println("Salario Nuevo: ");
+        double sal = lea.nextDouble();
+        
+        emp.updateSalario(cod, sal);
     }
 }

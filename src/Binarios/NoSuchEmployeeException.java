@@ -10,6 +10,6 @@ package Binarios;
  */
 public class NoSuchEmployeeException extends RuntimeException {
     public NoSuchEmployeeException(int cod){
-        super("Empleado " + cod + " No existe");
+        super("Empleado " + cod + " No existe o no esta activo");
     }
 }
