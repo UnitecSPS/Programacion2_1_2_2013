@@ -28,6 +28,8 @@ public class Texto {
                 fileWriter(file);
                 System.out.println("\n\n");
                 fileRead(file);
+                System.out.println("\n\n");
+                scannerRead(file);
             }
             
             
@@ -82,6 +84,22 @@ public class Texto {
             System.out.println("Bytes leido: " + bytes);
             
             fr.close();
+        }
+        catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void scannerRead(String file) {
+        try{
+            FileReader fr = new FileReader(file);
+            Scanner scr = new Scanner(fr);
+            scr.useDelimiter(System.getProperty("line.separator"));
+            
+            while(scr.hasNext()){
+                System.out.println(scr.next());
+            }
+            
         }
         catch(Exception e){
             System.out.println("Error: " + e.getMessage());
